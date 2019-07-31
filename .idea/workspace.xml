@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84b0b0f9-cdf6-4a08-aeed-4105c2127645" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -371,7 +370,7 @@
       <workItem from="1559386057070" duration="602000" />
       <workItem from="1562429193815" duration="9693000" />
       <workItem from="1563054937291" duration="38424000" />
-      <workItem from="1564568022283" duration="234000" />
+      <workItem from="1564568022283" duration="470000" />
     </task>
     <task id="LOCAL-00001" summary="first part.controller. template. theme bootswatch. migration">
       <created>1564568231522</created>
@@ -380,14 +379,21 @@
       <option name="project" value="LOCAL" />
       <updated>1564568231522</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="first part.controller. template. theme bootswatch. migration">
+      <created>1564568346888</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1564568346888</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59788000" />
+    <option name="totallyTimeSpent" value="60024000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
