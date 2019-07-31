@@ -1,0 +1,34 @@
+
+
+<div class="col-md-4">
+
+    <div class="card bg-light mb-3">
+        <div class="card-header text-center">
+            {{ miss.title}}  <strong>{{ miss.category.title }}</strong>
+        </div>
+
+        <a href="#">
+            <img src="#" alt="Photo du citron vert" style="height: 200px; width: 100%; display: block">
+        </a>
+
+        <div class="card-body">
+            <h4 class="card-title">
+                <a href="#">
+                    {{ miss.price }}
+                </a>
+            </h4>
+            <p class="card-text">
+                {{ miss.description }}
+            </p>
+            <a href="{{ path('mission_show', {'slug':miss.slug}) }}" class="btn btn-secondary">En savoir plus</a>
+
+            {% if app.user and app.user == miss.author %}
+                <a href="#" class="btn btn-secondary">Modifier l'annonce</a>
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</div>
