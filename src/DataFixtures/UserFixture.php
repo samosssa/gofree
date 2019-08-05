@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Mission;
 use App\Entity\Role;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -64,6 +65,32 @@ class UserFixture extends Fixture
             $manager->persist($user);
             $users[] = $user;
         }
+
+        // Missions
+        for ($i=0;$i<100;$i++) {
+            $mission = new Mission();
+
+            $startDate = $faker->dateTimeBetween('-3 months');
+            //gestion de la date de fin
+            $duration = mt_rand(3, 10);
+            $endDate = (clone $startDate)->modify("+$duration days");
+            $user = $users[mt_rand(0, count($users) - 1)];
+
+
+            $mission->setTitle($faker->text(30));
+            $mission->setStartDay($startDate);
+            $mission->setEndDate($endDate);
+            $mission->setPrice($faker->randomFloat());
+            $mission->setDescription('<p>' .join('<p></p>',$faker->paragraphs(3)) . '</p>');
+            $mission->setCategory($this->getReference('category_' . rand(0,2)));
+            $mission->setAuthor($user);
+
+            $manager->persist($mission);
+            $this->addReference('mission_' . $i, $mission);
+
+
+        }
+
 
         $manager->flush();
     }

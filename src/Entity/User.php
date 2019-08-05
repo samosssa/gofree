@@ -90,6 +90,7 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Mission", mappedBy="author")
      */
     private $missions;
+
     public function getFullName(){
 
         return "{$this->firstName} {$this->lastName}";
