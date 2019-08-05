@@ -75,9 +75,11 @@ class UserFixture extends Fixture
             $duration = mt_rand(3, 10);
             $endDate = (clone $startDate)->modify("+$duration days");
             $user = $users[mt_rand(0, count($users) - 1)];
+            $coverImage = $faker->imageUrl(1000,350);
 
 
             $mission->setTitle($faker->text(30));
+            $mission->setCoverImage($coverImage);
             $mission->setStartDay($startDate);
             $mission->setEndDate($endDate);
             $mission->setPrice($faker->randomFloat());

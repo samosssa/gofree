@@ -9,7 +9,7 @@
     <div class="container-fluid" style="">
         <div class="container">
             <h1>{{ miss.title }}</h1>
-            <p>{{ miss.description }}</p>
+            <p>{{ miss.description | raw }}</p>
             <p class="h2">
                 <strong>{{ miss.title }}</strong> pour <strong>{{ miss.price }}&euro;
                 </strong>

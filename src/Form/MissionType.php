@@ -6,6 +6,7 @@ use App\Entity\Mission;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,6 +35,10 @@ class MissionType extends ApplicationType
                 DateType::class,
                 $this->getConfiguration("Date de départ", "La date à laquelle vous quittez les lieux", ["widget" => "single_text"
                 ])
+            )
+            ->add('coverImage',
+                UrlType::class,
+                $this->getConfiguration("URL de l'image principale", "Donnez l'adresse d'une image qui donne envie")
             )
             ->add('description',
                 TextType::class,
