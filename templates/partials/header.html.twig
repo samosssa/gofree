@@ -24,10 +24,10 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
-                        <a href="{{ path('miss_create') }}" class="dropdown-item">Créer une nouvelle annonce</a>
+                        <a href="{{ path('miss_create') }}" class="dropdown-item">Créer une nouvelle mission</a>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">Mon compte</a>
-                        <a href="#" class="dropdown-item">Modifier mon profile</a>
+                        <a href="{{ path('account_index') }}" class="dropdown-item">Mon compte</a>
+                        <a href="{{ path('account_profile') }}" class="dropdown-item">Modifier mon profile</a>
                         <div class="dropdown-divider"></div>
                         <a href="{{ path('account_logout') }}" class="dropdown-item">Déconnexion</a>
                     </div>
@@ -45,3 +45,14 @@
 
     </div>
 </nav>
+
+{% for label, messages in app.flashes  %}
+    <div class="container">
+        <div class="alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {%  endfor %}
+
+        </div>
+    </div>
+{%  endfor %}

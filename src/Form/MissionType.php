@@ -2,8 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Mission;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -11,11 +14,20 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+
 class MissionType extends ApplicationType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => function(Category $cat) {
+                    return sprintf('(%d) %s', $cat->getId(), $cat->getTitle());
+                }
+            ])
+
             ->add('title',
                 TextType::class,
                 $this->getConfiguration("Titre", "Tapez un Titre")

@@ -8,7 +8,7 @@
         </div>
 
         <a href="#">
-            <img src={{ miss.coverImage }} alt="missions" style="height: 200px; width: 100%; display: block">
+            <img src="{{miss.coverImage  }}" alt="missions" style="height: 200px; width: 100%; display: block">
         </a>
 
         <div class="card-body">
@@ -23,7 +23,7 @@
             <a href="{{ path('mission_show', {'slug':miss.slug}) }}" class="btn btn-secondary">En savoir plus</a>
 
             {% if app.user and app.user == miss.author %}
-                <a href="#" class="btn btn-secondary">Modifier l'annonce</a>
+                <a href="{{ path('miss_edit', {'slug':miss.slug}) }}" class="btn btn-secondary">Modifier l'annonce</a>
             {% endif %}
 
 

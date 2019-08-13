@@ -12,6 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MissionRepository")
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(
+ *     fields={"title"},
+ *     message="Une autre annonce possède deja ce titre"
+ *     )
  */
 
 class Mission
@@ -79,12 +83,20 @@ class Mission
      */
     private $coverImage;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Apply", mappedBy="mission")
+     */
+    private $applies;
+
+
 
 
     public function __construct()
     {
         $this->skills = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->startDate = new ArrayCollection();
+        $this->applies = new ArrayCollection();
     }
 
     /**
@@ -270,4 +282,37 @@ class Mission
 
         return $this;
     }
+
+    /**
+     * @return Collection|Apply[]
+     */
+    public function getApplies(): Collection
+    {
+        return $this->applies;
+    }
+
+    public function addApply(Apply $apply): self
+    {
+        if (!$this->applies->contains($apply)) {
+            $this->applies[] = $apply;
+            $apply->setMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApply(Apply $apply): self
+    {
+        if ($this->applies->contains($apply)) {
+            $this->applies->removeElement($apply);
+            // set the owning side to null (unless already changed)
+            if ($apply->getMission() === $this) {
+                $apply->setMission(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

@@ -91,6 +91,11 @@ class User implements UserInterface
      */
     private $missions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Apply", mappedBy="freelancer")
+     */
+    private $applies;
+
     public function getFullName(){
 
         return "{$this->firstName} {$this->lastName}";
@@ -117,6 +122,7 @@ class User implements UserInterface
         $this->user_mission = new ArrayCollection();
         $this->user_skill = new ArrayCollection();
         $this->missions = new ArrayCollection();
+        $this->applies = new ArrayCollection();
     }
 
 
@@ -331,6 +337,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($mission->getAuthor() === $this) {
                 $mission->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Apply[]
+     */
+    public function getApplies(): Collection
+    {
+        return $this->applies;
+    }
+
+    public function addApply(Apply $apply): self
+    {
+        if (!$this->applies->contains($apply)) {
+            $this->applies[] = $apply;
+            $apply->setFreelancer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApply(Apply $apply): self
+    {
+        if ($this->applies->contains($apply)) {
+            $this->applies->removeElement($apply);
+            // set the owning side to null (unless already changed)
+            if ($apply->getFreelancer() === $this) {
+                $apply->setFreelancer(null);
             }
         }
 

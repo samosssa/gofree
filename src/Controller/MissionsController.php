@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Mission;
 use App\Form\MissionType;
 use App\Repository\MissionRepository;
@@ -23,12 +24,74 @@ class MissionsController extends AbstractController
         //$repo = $this->getDoctrine()->getRepository(Ad::class);
         $mission = $repo->findAll();
 
-        return $this->render('missions/index.html.twig', [
+        return $this->render('missions/apply.html.twig', [
             'missions' => $mission
         ]);
     }
 
+    /**
+     * permet de créer une nouvelle annnonce
+     * @Route("/missions/new", name="miss_create")
+     * @IsGranted("ROLE_USER")
+     * @return Response
+     */
+    public function create(Request $request,ObjectManager $manager){
 
+        $mission = new Mission();
+
+        $cats= $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $form = $this->createForm(MissionType::class, $mission);
+        $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()){
+
+                $mission->setAuthor($this->getUser());
+
+
+                $manager ->persist($mission);
+                $manager->flush();
+                $this->addFlash(
+                    'success',
+                    "La mission <strong>{$mission->getTitle()}</strong> a bien été enregistrée!"
+                );
+
+                return $this->redirectToRoute('mission_show', [
+                    'slug' => $mission->getSlug()
+                ]);
+            }
+        return $this->render('missions/new.html.twig', [
+            'form' => $form->createView(),
+            'category' => $cats,
+        ]);
+    }
+
+    /**
+     * Permet d'affciher le formulaire d'edition
+     *
+     * @Route("/missions/{slug}/edit", name="miss_edit")
+     * @Security("is_granted('ROLE_USER') and user === mission.getAuthor()")
+     */
+    public function edit(Mission $mission, Request $request, ObjectManager $manager){
+
+        $form = $this->createForm(MissionType::class, $mission);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $manager ->persist($mission);
+            $manager->flush();
+            $this->addFlash(
+                'success',
+                "La mission <strong>{$mission->getTitle()}</strong> a bien été modifier!"
+            );
+            return $this->redirectToRoute('mission_show', [
+                'slug' => $mission->getSlug()
+            ]);
+        }
+        return $this->render('missions/edit.html.twig', [
+            'form' => $form->createView(),
+            'miss' => $mission
+        ]);
+
+    }
 
     /**
      * @Route("/missions/{slug}", name="mission_show")
@@ -43,61 +106,14 @@ class MissionsController extends AbstractController
     }
 
     /**
-     * permet de créer une nouvelle annnonce
-     * @Route("/missions/new", name="miss_create")
-     * @IsGranted("ROLE_USER")
+     * Permet de supprimer un annonce
+     *
+     * @Route("/missions/{slug}/delete", name="miss_delete")
+     * @param Mission $mission
+     * @param ObjectManager $manager
      * @return Response
      */
-    public function create(Request $request,ObjectManager $manager){
-
-        $mission = new Mission();
-        $form = $this->createForm(MissionType::class, $mission);
-        $form->handleRequest($request);
-            if($form->isSubmitted() && $form->isValid()){
-
-                $mission->setAuthor($this->getUser());
-                $manager ->persist($mission);
-                $manager->flush();
-                $this->addFlash(
-                    'success',
-                    "La mission <strong>{$mission->getTitle()}</strong> a bien été enregistrée!"
-                );
-
-                return $this->redirectToRoute('mission_show', [
-                    'slug' => $mission->getSlug()
-                ]);
-            }
-        return $this->render('missions/new.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * Permet d'affciher le formulaire d'edition
-     *
-     * @Route("/ads/{slug}/edit", name="ads_edit")
-     * @Security("is_granted('ROLE_USER') and user === ad.getAuthor()")
-     */
-    public function edit(Mission $mission, Request $request, ObjectManager $manager){
-
-        $form = $this->createForm(MissionType::class, $ad);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $manager ->persist($ad);
-            $manager->flush();
-            $this->addFlash(
-                'success',
-                "L'annonce <strong>{$ad->getTitle()}</strong> a bien été modifier!"
-            );
-            return $this->redirectToRoute('ads_show', [
-                'slug' => $ad->getSlug()
-            ]);
-        }
-        return $this->render('ad/edit.html.twig', [
-            'form' => $form->createView(),
-            'ad' => $ad
-        ]);
+    public function delete(Mission $mission, ObjectManager $manager){
 
     }
 
