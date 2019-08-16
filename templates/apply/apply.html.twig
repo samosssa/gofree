@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postuler pour la mission : {{ miss.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Postuler pour la mission  : {{  miss.title }}</h2>
+        <p>Vous etes sur le point de postuler pour la mission <strong>{{ miss.author.fullname }}</strong>, dites nous tout, on s'enoccupe du reste!
+        </p>
+
+        {{ form_start(form) }}
+
+        <h4>Vous avez des questions, un commentaire ou une information qui pourrait etre un plus dans la mission et qui n'est pas inqué sur votre profile ?</h4>
+        {{ form_row(form.comment) }}
+
+        <h6>Vous avez terminé!</h6>
+
+
+        <button type="submit" class="btn btn-success">Je postule!</button>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+

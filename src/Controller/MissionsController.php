@@ -24,7 +24,7 @@ class MissionsController extends AbstractController
         //$repo = $this->getDoctrine()->getRepository(Ad::class);
         $mission = $repo->findAll();
 
-        return $this->render('missions/apply.html.twig', [
+        return $this->render('missions/index.html.twig', [
             'missions' => $mission
         ]);
     }

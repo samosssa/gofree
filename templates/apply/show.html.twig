@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Candidature n°{{ apply.id }}{% endblock %}
+
+{% block body %}
+
+    {% set miss = apply.mission %}
+    {% set author = miss.author %}
+
+    <div class="container">
+        <h1>Votre réservation (n°{{ apply.id }})</h1>
+
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2>Details</h2>
+                    <dl class="row">
+                        <dt class="col-md-4">Numéro</dt>
+                        <dd class="col-md-8">{{ apply.id }}</dd>
+                        <dt class="col-md-4">Date d'arrivée</dt>
+                        <dd class="col-md-8">{{ miss.start_day | date('d/m/Y') }}</dd>
+                        <dt class="col-md-4">Date de départ</dt>
+                        <dd class="col-md-8">{{ miss.end_date | date('d/m/Y') }}</dd>
+                        <dt class="col-md-4">Salaire</dt>
+                        <dd class="col-md-8">{{ miss.price }} &euro;</dd>
+                        <dt class="col-md-4">Commentaire</dt>
+                        <dd class="col-md-8">{{ apply.comment }}</dd>
+                    </dl>
+                    <hr>
+
+                    <h2 class="alert-heading">Votre société</h2>
+
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="{{ author.picture }}" class="avatar avatar-medium" alt="Avatar de {{ author.fullname }}">
+                        </div>
+                        <div class="col-9">
+                            <h4>
+                                <a href="{{  path('user_show', {'slug': author.slug}) }}">{{ author.fullname }}</a>
+                            </h4>
+
+                            <span class="badge badge-primary">{{author.missions|length }} missions</span>
+                        </div>
+                    </div>
+                    {{ author.introduction | raw }}
+
+                    <a href="{{ path('user_show', {'slug': author.slug}) }}" class="btn btn-primary"> Plusd'info {{ author.firstName }}</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="alert alert-light">
+
+
+                    <h2 class="alert-heading">Votre misssion</h2>
+                    <h4>
+                        <a href="{{ path('mission_show', {'slug': miss.slug}) }}">{{ miss.title }}</a>
+                    </h4>
+                    <img src="{{ miss.coverImage }}" alt="Image de {{ miss.title }}" class="img-fluid">
+
+                    {{ miss.description| raw }}
+
+                    <a href="{{ path('mission_show', {'slug': miss.slug}) }}" class="btn btn-primary">Plus d'informations</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

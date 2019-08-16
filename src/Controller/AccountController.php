@@ -187,13 +187,15 @@ class AccountController extends AbstractController
      */
     public function myAccount(){
 
-        return $this->render('user/apply.html.twig', [
+        return $this->render('user/index.html.twig', [
             'user' => $this->getUser()
         ]);
 
     }
 
-
+public function bookings(){
+        return $this->render('account/applies.html.twig');
+}
 
 
 

@@ -15,13 +15,13 @@
                 </strong>
 
             </p>
-            <a href="#" class="btn btn-primary">Postuler!</a>
-            {#
-                        {% if app.user and app.user == ad.author %}
-                            <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-secondary">Modifier l'annonce</a>
-                            <a href="{{  path('ads_delete', {'slug' : ad.slug}) }}" class="btn btn-danger" oneclick="return confirm(`Etes vous sur de vouloir supprimer l'annonce : {{ad.title}}?`)">Supprimer l'annonce</a>
+            <a href="{{ path('apply_create',{'slug' : miss.slug})  }}" class="btn btn-primary">Postuler!</a>
+
+                        {% if app.user and app.user == miss.author %}
+                            <a href="{{ path('miss_edit', {'slug': miss.slug}) }}" class="btn btn-secondary">Modifier l'annonce</a>
+                            <a href="{{  path('miss_delete', {'slug' : miss.slug}) }}" class="btn btn-danger" oneclick="return confirm(`Etes vous sur de vouloir supprimer l'annonce : {{ad.title}}?`)">Supprimer l'annonce</a>
                         {% endif %}
-            #}
+
         </div>
     </div>
 

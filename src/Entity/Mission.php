@@ -39,13 +39,15 @@ class Mission
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\Date(message"Attention, la date d'arrivée doit etre au bon format!")
      */
-    private $start_day;
+    public $start_day;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\Date(message"Attention, la date d'arrivée doit etre au bon format!")
      */
-    private $end_date;
+    public $end_date;
 
     /**
      * @ORM\Column(type="text")
