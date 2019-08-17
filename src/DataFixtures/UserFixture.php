@@ -40,6 +40,21 @@ class UserFixture extends Fixture
 
         $manager->persist($adminUser);
 
+        $usersocRole = new Role();
+        $usersocRole ->setTitle('ROLE_USERSOC');
+        $manager->persist($usersocRole);
+
+        $socUser = new User();
+        $socUser->setFirstName('elia')
+            ->setLastName('dgb')
+            ->setEmail('elia.dgb@symf.com')
+            ->setHash($this->encoder->encodePassword($adminUser, 'password'))
+            ->setPicture('https://avatars.io/twitter/Samc')
+            ->setIntroduction($faker->sentence())
+            ->addRole($usersocRole);
+
+        $manager->persist($socUser);
+
         //nous gérons les utilisateurs
         $users = [];
         $genres= ['male', ' female'];

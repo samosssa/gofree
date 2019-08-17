@@ -32,7 +32,7 @@ class MissionsController extends AbstractController
     /**
      * permet de créer une nouvelle annnonce
      * @Route("/missions/new", name="miss_create")
-     * @IsGranted("ROLE_USER")
+     * @IsGranted("ROLE_USERSOC")
      * @return Response
      */
     public function create(Request $request,ObjectManager $manager){

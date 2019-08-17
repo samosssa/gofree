@@ -1,0 +1,27 @@
+{%  extends 'base.html.twig' %}
+{%  block title  %}Vos réservations passées et à venir{%  endblock %}
+{%  block body %}
+
+    <div class="container">
+        <h1>Mes Candidatures pour les missions</h1>
+        <div class="alert alert-info mt-5">
+            <p></p>
+        </div>
+
+        {%  for apply in app.user.applies %}
+            <div class="row mt-5">
+                <div class="col-4">
+                    <img src="{{ apply.mission.coverImage }}" alt="photo de la mission {{ apply.mission.title }}" class="img-fluid">
+                </div>
+                <div class="col-8">
+                    <h3>{{ apply.mission.title }}</h3>
+                    <p>
+                        Postuler à la mission <strong>n°{{ apply.id }}</strong><br>
+                        du{{ apply.mission.start_day |date('d/m/Y') }} au {{ apply.mission.end_date|date('d/m/Y') }} ({{ apply.mission.price }} &euro;)
+                    </p>
+                    <a href="{{ path('apply_show', {'id' : apply.id}) }}" class="btn btn-info">Plus d'informations</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

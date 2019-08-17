@@ -193,6 +193,13 @@ class AccountController extends AbstractController
 
     }
 
+    /**
+     * Permet d'afficher la liste des candidature envoyé faites par le freelancer
+     *
+     * @Route("/account/applies", name="account_applies")
+     *
+     *
+     */
 public function bookings(){
         return $this->render('account/applies.html.twig');
 }
