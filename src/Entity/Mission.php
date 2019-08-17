@@ -74,11 +74,6 @@ class Mission
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="user_mission")
      */
     private $users;
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="ads")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $author;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -90,6 +85,17 @@ class Mission
      */
     private $applies;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\UserSoc", mappedBy="usersoc_mission")
+     */
+    private $userSocs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserSoc", inversedBy="missions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $userSoc;
+
 
 
 
@@ -99,6 +105,7 @@ class Mission
         $this->users = new ArrayCollection();
         $this->startDate = new ArrayCollection();
         $this->applies = new ArrayCollection();
+        $this->userSocs = new ArrayCollection();
     }
 
     /**
@@ -312,6 +319,46 @@ class Mission
                 $apply->setMission(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserSoc[]
+     */
+    public function getUserSocs(): Collection
+    {
+        return $this->userSocs;
+    }
+
+    public function addUserSoc(UserSoc $userSoc): self
+    {
+        if (!$this->userSocs->contains($userSoc)) {
+            $this->userSocs[] = $userSoc;
+            $userSoc->addUsersocMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserSoc(UserSoc $userSoc): self
+    {
+        if ($this->userSocs->contains($userSoc)) {
+            $this->userSocs->removeElement($userSoc);
+            $userSoc->removeUsersocMission($this);
+        }
+
+        return $this;
+    }
+
+    public function getUserSoc(): ?UserSoc
+    {
+        return $this->userSoc;
+    }
+
+    public function setUserSoc(?UserSoc $userSoc): self
+    {
+        $this->userSoc = $userSoc;
 
         return $this;
     }

@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Mission;
 use App\Entity\Role;
 use App\Entity\User;
+use App\Entity\UserSoc;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -79,6 +80,29 @@ class UserFixture extends Fixture
 
             $manager->persist($user);
             $users[] = $user;
+
+            for($j = 1; $j <= 5; $j++){
+
+                $usersoc = new UserSoc();
+
+
+                $picture='https://randomuser.me/api/portraits/';
+
+
+                $hash = $this->encoder->encodePassword($usersoc, 'password');
+
+                $usersoc->setName($faker->name)
+                    ->setTva($faker->randomNumber($nbDigits = NULL, $strict = false) )
+                    ->setEmail($faker->email)
+                    ->setIntroduction($faker->sentence())
+                    ->setHash($hash)
+                    ->setPicture($picture)
+                ->addRole($usersocRole);
+
+                $manager->persist($usersoc);
+                $userssoc[] = $usersoc;
+
+            }
         }
 
         // Missions
@@ -89,7 +113,7 @@ class UserFixture extends Fixture
             //gestion de la date de fin
             $duration = mt_rand(3, 10);
             $endDate = (clone $startDate)->modify("+$duration days");
-            $user = $users[mt_rand(0, count($users) - 1)];
+            $usersoc = $userssoc[mt_rand(0, count($userssoc) - 1)];
             $coverImage = $faker->imageUrl(1000,350);
 
 
@@ -100,7 +124,7 @@ class UserFixture extends Fixture
             $mission->setPrice($faker->randomFloat());
             $mission->setDescription('<p>' .join('<p></p>',$faker->paragraphs(3)) . '</p>');
             $mission->setCategory($this->getReference('category_' . rand(0,2)));
-            $mission->setAuthor($user);
+            $mission->setUserSoc($usersoc);
 
             $manager->persist($mission);
             $this->addReference('mission_' . $i, $mission);

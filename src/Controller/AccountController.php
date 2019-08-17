@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Mission;
 use App\Entity\PasswordUpdate;
+use App\Entity\Role;
 use App\Entity\User;
+use App\Entity\UserSoc;
 use App\Form\AccountType;
 use App\Form\MissionType;
 use App\Form\PasswordUpdateType;
+use App\Form\RegistrationSocType;
 use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -50,6 +53,17 @@ class AccountController extends AbstractController
     }
 
     /**
+     * Permet d'afficher la page de choix
+     *
+     * @Route("/account/choice", name="account_choice")
+     *
+     *
+     */
+    public function choice(){
+        return $this->render('account/choice.html.twig');
+    }
+
+    /**
      * Permet de afficher le formulaire d inscription
      *
      * @Route("/register", name="account_register")
@@ -84,7 +98,50 @@ class AccountController extends AbstractController
 
         ]);
 
+    }/**
+ * Permet de afficher le formulaire d inscription d'un utilisateur société
+ *
+ * @Route("/registersoc", name="account_registersoc")
+ */
+    public function registersoc(Request $request, ObjectManager $manager, UserPasswordEncoderInterface$encoder){
+
+        $usersoc = new UserSoc();
+
+
+
+        $form = $this->createForm(RegistrationSocType::class, $usersoc);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $usersocRole = new Role();
+            $usersocRole ->setTitle('ROLE_USERSOC');
+            $manager->persist($usersocRole);
+
+            $hash = $encoder->encodePassword($usersoc, $usersoc->getHash());
+            $usersoc->setHash($hash)
+                    ->addRole($usersocRole);
+            $manager->persist($usersoc);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Votre compte a bien été créé ! Vous pouvez maintenant vous connecter"
+            );
+
+            return $this->redirectToRoute('account_login');
+
+
+        }
+
+        return $this->render('account/registration.html.twig', [
+            'form' => $form->createView()
+
+        ]);
+
     }
+
 
 
 

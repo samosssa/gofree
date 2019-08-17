@@ -38,10 +38,16 @@ class Skill
      */
     private $users;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\UserSoc", mappedBy="usersoc_skill")
+     */
+    private $userSocs;
+
     public function __construct()
     {
         $this->miss = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->userSocs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -122,6 +128,34 @@ class Skill
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
             $user->removeUserSkill($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserSoc[]
+     */
+    public function getUserSocs(): Collection
+    {
+        return $this->userSocs;
+    }
+
+    public function addUserSoc(UserSoc $userSoc): self
+    {
+        if (!$this->userSocs->contains($userSoc)) {
+            $this->userSocs[] = $userSoc;
+            $userSoc->addUsersocSkill($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserSoc(UserSoc $userSoc): self
+    {
+        if ($this->userSocs->contains($userSoc)) {
+            $this->userSocs->removeElement($userSoc);
+            $userSoc->removeUsersocSkill($this);
         }
 
         return $this;

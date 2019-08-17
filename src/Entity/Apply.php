@@ -54,6 +54,12 @@ class Apply
      * @ORM\Column(type="text", nullable=true)
      */
     private $comment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserSoc", inversedBy="applies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $userSoc;
     /**
      * Callback appelé à chaque fois qu'on créé une réservation
      *
@@ -158,6 +164,18 @@ class Apply
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getUserSoc(): ?UserSoc
+    {
+        return $this->userSoc;
+    }
+
+    public function setUserSoc(?UserSoc $userSoc): self
+    {
+        $this->userSoc = $userSoc;
 
         return $this;
     }

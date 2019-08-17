@@ -28,9 +28,15 @@ class Role
      */
     private $users;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\UserSoc", mappedBy="roles")
+     */
+    private $userSocs;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->userSocs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,6 +77,34 @@ class Role
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserSoc[]
+     */
+    public function getUserSocs(): Collection
+    {
+        return $this->userSocs;
+    }
+
+    public function addUserSoc(UserSoc $userSoc): self
+    {
+        if (!$this->userSocs->contains($userSoc)) {
+            $this->userSocs[] = $userSoc;
+            $userSoc->addRole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserSoc(UserSoc $userSoc): self
+    {
+        if ($this->userSocs->contains($userSoc)) {
+            $this->userSocs->removeElement($userSoc);
+            $userSoc->removeRole($this);
         }
 
         return $this;

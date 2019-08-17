@@ -2,12 +2,21 @@ security:
     encoders:
         App\Entity\User:
             algorithm: bcrypt
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+        App\Entity\UserSoc:
+            algorithm: bcrypt
+         # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory: { memory: ~ }
+        chain_provider:
+            chain:
+                providers: [in_database, in_data]
         in_database:
             entity:
                 class: App\Entity\User
+                property: email
+        in_data:
+            entity:
+                class: App\Entity\UserSoc
                 property: email
     firewalls:
         dev:
@@ -16,7 +25,7 @@ security:
         main:
             anonymous: true
 
-            provider: in_database
+            provider: chain_provider
 
             form_login:
                 login_path: account_login
@@ -25,6 +34,8 @@ security:
             logout:
                 path: account_logout
                 target: account_login
+
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -37,3 +48,4 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+

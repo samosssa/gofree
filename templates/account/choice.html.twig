@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}Inscription{%  endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Inscrivez vous sur notre site en tant que Freelancer ou société !</h1>
+        <a href="{{ path('account_register') }}" class="nav-link">Inscription en tant que freelancer</a>
+        <a href="{{ path('account_registersoc') }}" class="nav-link">Inscription en tant que société</a>
+
+    </div>
+
+{% endblock %}
