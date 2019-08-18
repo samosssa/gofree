@@ -22,7 +22,7 @@
             </p>
             <a href="{{ path('mission_show', {'slug':miss.slug}) }}" class="btn btn-secondary">En savoir plus</a>
 
-            {% if app.user and app.user == miss.author %}
+            {% if app.user and app.user == miss.usersoc.name %}
                 <a href="{{ path('miss_edit', {'slug':miss.slug}) }}" class="btn btn-secondary">Modifier l'annonce</a>
             {% endif %}
 

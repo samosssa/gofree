@@ -30,6 +30,7 @@ class ApplyController extends AbstractController
             $user = $this->getUser();
 
             $apply->setFreelancer($user)
+                ->setUserSoc($mission->getUserSoc())
                 ->setMission($mission)
                 ->setStartDate($mission->getStartDay())
                 ->setEndDate($mission->getEndDate())

@@ -6,7 +6,7 @@
 {% block body %}
 
     {% set miss = apply.mission %}
-    {% set author = miss.author %}
+    {% set author = miss.usersoc %}
 
     <div class="container">
         <h1>Votre réservation (n°{{ apply.id }})</h1>
@@ -45,7 +45,7 @@
                     </div>
                     {{ author.introduction | raw }}
 
-                    <a href="{{ path('user_show', {'slug': author.slug}) }}" class="btn btn-primary"> Plusd'info {{ author.firstName }}</a>
+                    <a href="{{ path('usersoc_show', {'slug': miss.userSoc.slug}) }}" class="btn btn-primary"> Plus d'info {{ author.name }}</a>
                 </div>
             </div>
             <div class="col">

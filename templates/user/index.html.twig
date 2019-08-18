@@ -9,7 +9,7 @@
             <div class="col-3">
                 <img src="{{ user.picture }}"  alt="Avatar de {{ user.fullName }}" class="avatar">
                 <br>
-                <span class="badge badge-primary">{{ user.missions| length }} annonce(s)</span>
+
             </div>
             <div class="col-9">
 
@@ -28,26 +28,13 @@
 
         <h2>les missions de {{ user.fullName }} </h2>
 
-        {% if user.missions | length > 0 %}
-            <div class="row">
-                {%  for miss in user.missions %}
 
-                    {%  include 'missions/_miss.html.twig' %}
-
-                {% endfor %}
-
-            </div>
-        {%  else %}
 
             <div class="alert alert-warning">
                 <p>
                     <strong>{{ user.fullName }} n' a pas encore de mission(s)</strong>
                 </p>
             </div>
-
-        {%  endif %}
-
-
     </div>
 
 {% endblock %}

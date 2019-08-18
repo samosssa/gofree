@@ -44,7 +44,7 @@ class MissionsController extends AbstractController
         $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()){
 
-                $mission->setAuthor($this->getUser());
+                $mission->setUserSoc($this->getUser());
 
 
                 $manager ->persist($mission);
@@ -68,7 +68,7 @@ class MissionsController extends AbstractController
      * Permet d'affciher le formulaire d'edition
      *
      * @Route("/missions/{slug}/edit", name="miss_edit")
-     * @Security("is_granted('ROLE_USER') and user === mission.getAuthor()")
+     * @Security("is_granted('ROLE_USER') and user === mission.getUserSoc()")
      */
     public function edit(Mission $mission, Request $request, ObjectManager $manager){
 

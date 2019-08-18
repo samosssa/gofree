@@ -1,0 +1,101 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Edition mission{% endblock %}
+
+
+{% block body %}
+
+    <div class="container-fluid">
+        <h1>Modifier la mission: {{ miss.title }}</h1>
+
+        {{ form_start(form) }}
+
+        <div class="row">
+            <div class="col">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <h4 class="card-title">Corriger la mission</h4>
+                    </div>
+                    <div class="card-body">
+                        {{ form_widget(form) }}
+
+                        <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <h4 class="card-title">Les candidatures</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Freelancer</th>
+                                    <th>Date de la candidature</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for apply in miss.applies %}
+                                <tr>
+                                    <td>{{ apply.id }}</td>
+                                    <td>{{ apply.freelance.fullName }}</td>
+                                    <td>{{ apply.createdAt | date('d/m/Y H:i') }}</td>
+                                    <td>
+                                        <a href="#" class="btn btn-primary"></a>
+                                    </td>
+                                    
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card bg-light mt-5">
+                    <div class="card-header">
+                        <h4 class="card-title">Les notes</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Freelancer</th>
+                                <th>Date de la candidature</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for apply in miss.applies %}
+                                <tr>
+                                    <td>{{ apply.id }}</td>
+                                    <td>{{ apply.freelance.fullName }}</td>
+                                    <td>{{ apply.createdAt | date('d/m/Y H:i') }}</td>
+                                    <td>
+                                        <a href="#" class="btn btn-primary"></a>
+                                    </td>
+
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}
