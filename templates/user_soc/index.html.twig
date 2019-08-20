@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page de {{ usersoc.fullName }}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <img src="{{ usersoc.picture }}"  alt="Avatar de {{ usersoc.fullName }}" class="avatar">
+                <br>
+                <span class="badge badge-primary">{{ usersoc.missions| length }} mission(s)</span>
+            </div>
+            <div class="col-9">
+
+                <h1>{{ usersoc.fullName }}</h1>
+                {% if usersoc is same as(app.user) %}
+                    <div class="mt-3">
+                        <a href="{{ path('account_profile') }}" class="btn btn-primary mr-2 mb-2">Modifier mes informations</a>
+                        <a href="{{ path('account_password') }}" class="btn btn-primary mr-2 mb-2">Modifier mon mot de passe</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {{ usersoc.introduction | raw }}
+        <hr>
+
+        <h2>les missions de {{ usersoc.fullName }} </h2>
+
+        {% if usersoc.missions | length > 0 %}
+            <div class="row">
+                {%  for miss in usersoc.missions %}
+
+                    {%  include 'missions/_miss.html.twig' %}
+
+                {% endfor %}
+
+            </div>
+        {%  else %}
+
+            <div class="alert alert-warning">
+                <p>
+                    <strong>{{ usersoc.fullName }} n' a pas encore de mission(s)</strong>
+                </p>
+            </div>
+
+        {%  endif %}
+
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Administration des missions{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1 class="my-5">Gestion des missions</h1>
+
+    <table class="table-over">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre :</th>
+            <th>Auteur:</th>
+            <th>Prix</th>
+            <th>postule</th>
+            <th>action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for mis in pagination.data %}
+        <tr>
+            <td>{{ mis.id }}</td>
+            <td>{{ mis.title }}</td>
+            <td>{{ mis.userSoc.name }}</td>
+            <td>{{ mis.price }}</td>
+            <td>{{ mis.applies | length }}</td>
+            <td>
+                <a href="{{ path('admin_miss_edit', {'id' : mis.id}) }}" class="btn btn-primary"><i class="fas fas-edit"></i></a>
+                <a href="{{ path('admin_miss_delete', {'id' : mis.id})  }}" class="btn btn-danger"><i class="fas fas-trash"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+        
+        </tbody>
+    </table>
+
+    <div class="d-flex mt-5 justify-content-center">
+        {% set page = pagination.page %}
+        {% set pages = pagination.pages %}
+        <ul class="pagination">
+            <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                <a class="page-link" href="{{ path('admin_mission_index', {'page' : page-1}) }}">&laquo;</a>
+            </li>
+            {%  for i in 1..pages %}
+            <li class="page-item {% if page == i %}active{% endif %}">
+                <a class="page-link" href="{{ path('admin_mission_index', {'page' : i}) }}">{{ i }}</a>
+            </li>
+            {%  endfor %}
+            <li class="page-item {% if page == pages %}disable{% endif %}">
+                <a class="page-link" href="{{ path('admin_mission_index', {'page' : page+1}) }}">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+{% endblock %}

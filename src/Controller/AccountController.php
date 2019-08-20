@@ -233,6 +233,8 @@ class AccountController extends AbstractController
         ]);
 
     }
+
+
     /**
      * Permet d afficher le profile de l'utilisateur connecté
      *
@@ -250,6 +252,7 @@ class AccountController extends AbstractController
 
     }
 
+
     /**
      * Permet d'afficher la liste des candidature envoyé faites par le freelancer
      *
@@ -260,6 +263,24 @@ class AccountController extends AbstractController
 public function bookings(){
         return $this->render('account/applies.html.twig');
 }
+
+
+    /**
+     * Permet d afficher le profile de l'utilisateur connecté
+     *
+     * @Route("/accountsoc", name="accountsoc_index")
+     *
+     * @IsGranted("ROLE_USERSOC")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function myAccountsoc(){
+
+        return $this->render('user_soc/index.html.twig', [
+            'usersoc' => $this->getUser()
+        ]);
+
+    }
 
 
 

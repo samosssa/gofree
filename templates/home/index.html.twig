@@ -8,6 +8,7 @@
 {%  block body %}
 
 
+
     <div class="container">
 
         <div class="jumbotron mt-3">
@@ -24,122 +25,16 @@
         <h2 class="h1 mt-3 mb- 4">Nos missions récente!</h2>
 
         <div class="row">
+            {% for data in miss%}
 
-            <div class="col-md-4">
-                <div class="card bg-light mb-3">
-                    <div class="card-header text-center">
-                        3 chambres, <strong>49&euro; / nuit</strong>
-
-                    </div>
-                    <img src="/assets/css/cv2.jpg" alt="Photo du citron vert"
-                         style="height: 200px; width: 100%; display: block">
-
-                    <div class="card-body"></div>
-                    <h4 class="card-title">Le citron vert</h4>
-                    <p class="card-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Accusamus aut autem dignissimos esse illo ipsa itaque laborum sint voluptate!
-                        Quam?
-                    </p>
-                    <a href="#" class="btn btn-secondary">En savoir plus</a>
+                {% include 'missions/_miss.html.twig' with {'miss': data.mission} %}
 
 
-                </div>
-
-            </div>
-
-            <div class="col-md-4">
-                <div class="card bg-light mb-3">
-                    <div class="card-header text-center">
-                        3 chambres, <strong>49&euro; / nuit</strong>
-
-                    </div>
-                    <img src="C:\Users\sam\Desktop\RaybnbPhoto\Citron-vert-La-Ciotat-2" alt="Photo du citron vert"
-                         style="height: 200px; width: 100%; display: block">
-
-                    <div class="card-body"></div>
-                    <h4 class="card-title">Appartement de dingue</h4>
-                    <p class="card-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Accusamus aut autem dignissimos esse illo ipsa itaque laborum sint voluptate!
-                        Quam?
-                    </p>
-                    <a href="#" class="btn btn-secondary">En savoir plus</a>
-
-
-                </div>
-
-            </div>
-
-            <div class="col-md-4">
-                <div class="card bg-light mb-3">
-                    <div class="card-header text-center">
-                        3 chambres, <strong>49&euro; / nuit</strong>
-
-                    </div>
-                    <img src="C:\Users\sam\Desktop\RaybnbPhoto\Citron-vert-La-Ciotat-2" alt="Photo du citron vert"
-                         style="height: 200px; width: 100%; display: block">
-
-                    <div class="card-body"></div>
-                    <h4 class="card-title">Appartement de dingue</h4>
-                    <p class="card-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Accusamus aut autem dignissimos esse illo ipsa itaque laborum sint voluptate!
-                        Quam?
-                    </p>
-                    <a href="#" class="btn btn-secondary">En savoir plus</a>
-
-
-                </div>
-
-            </div>
-
+            {% endfor %}
 
         </div>
-
-
-        <h2 class="h1 mt-3 mb-4">Avis nos voyageur passée</h2>
-        <div class="row">
-            <div class="col">
-                <div class="card border-secondary mb-3">
-                    <div class="card-body">
-                        <h4 class="card-title">Sam Agadi</h4>
-                        <hr>
-                        <div class="card-text">
-                            <img src="http://placehold.it/64x64" alt="Avatar Ag sam" class="float-left mr-3">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Consequatur, quisquam!</p>
-                            <a href="#" class="btn btn-success float-right">En savoir plus!</a>
-
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card border-secondary mb-3">
-                    <div class="card-body">
-                        <h4 class="card-title">Sol Schel</h4>
-                        <hr>
-                        <div class="card-text">
-                            <img src="http://placehold.it/64x64" alt="Avatar Ag sol" class="float-left mr-3">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Consequatur, quisquam!</p>
-                            <a href="#" class="btn btn-success float-right">En savoir plus!</a>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-
 
     </div>
-
-
-
 
 {% endblock %}
 

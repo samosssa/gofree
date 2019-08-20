@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Mission;
 use App\Form\MissionType;
 use App\Repository\MissionRepository;
+use App\Service\PaginationService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -17,15 +18,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class MissionsController extends AbstractController
 {
     /**
-     * @Route("/missions", name="missions_index")
+     * @Route("/missions/{page<\d+>?1}", name="missions_index")
      */
-    public function index(MissionRepository $repo)
+    public function index(MissionRepository $repo, $page, PaginationService $pagination)
     {
-        //$repo = $this->getDoctrine()->getRepository(Ad::class);
-        $mission = $repo->findAll();
+        $pagination->setPage($page);
+        $pagination->setEntityClass(Mission::class);
+
 
         return $this->render('missions/index.html.twig', [
-            'missions' => $mission
+            'pagination' => $pagination
         ]);
     }
 

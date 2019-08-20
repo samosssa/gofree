@@ -96,6 +96,11 @@ class Mission
      */
     private $userSoc;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
 
 
 
@@ -123,8 +128,23 @@ class Mission
         }
     }
 
+    /**
+     * Callback appelé à chaque fois qu'on créé une candidature
+     *
+     * @ORM\PrePersist
+     *
+     * @return void
+     *
+     */
+    public function prePersist()
+    {
+        if (empty($this->createdAt)) {
+            $this->createdAt = new \DateTime();
+        }
 
-    public function getId(): ?int
+    }
+
+        public function getId(): ?int
     {
         return $this->id;
     }
@@ -349,6 +369,18 @@ class Mission
     public function setUserSoc(?UserSoc $userSoc): self
     {
         $this->userSoc = $userSoc;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

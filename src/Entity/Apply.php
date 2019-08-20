@@ -61,7 +61,7 @@ class Apply
      */
     private $userSoc;
     /**
-     * Callback appelé à chaque fois qu'on créé une réservation
+     * Callback appelé à chaque fois qu'on créé une candidature
      *
      * @ORM\PrePersist
      *
@@ -74,7 +74,7 @@ class Apply
         }
 
         if (empty($this->amount)){
-            // prix de l'annonce * nombre de jour
+            //
             $this->amount = $this->mission->getPrice();
         }
     }

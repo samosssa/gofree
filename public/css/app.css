@@ -9,7 +9,7 @@
     background-color: #000000;
 
 }
-div.container{
+div.container, div.container-fluid{
     margin-top: 20px;
 
 }
