@@ -96,6 +96,7 @@ class MissionsController extends AbstractController
     }
 
     /**
+     * Permet de consulter une mission en détail.
      * @Route("/missions/{slug}", name="mission_show")
      *
      * @return Response
@@ -108,7 +109,7 @@ class MissionsController extends AbstractController
     }
 
     /**
-     * Permet de supprimer un annonce
+     * Permet de supprimer unemission
      *
      * @Route("/missions/{slug}/delete", name="miss_delete")
      * @param Mission $mission
