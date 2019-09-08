@@ -6,86 +6,58 @@
 
 {% block body %}
 
-    <div class="container-fluid" style="">
+    {% set author = miss.userSoc %}
+
+
         <div class="container">
-            <h1>{{ miss.title }}</h1>
-            <p>{{ miss.description | raw }}</p>
-            <strong>Compétences éxigées: </strong> <strong>{{ miss.skills.title }}
-            <p class="h2">
-                <strong>{{ miss.title }}</strong> pour <strong>{{ miss.price }}&euro;
-                </strong>
+            <div class="row">
+                <div class="col">
+                    <h1>{{ miss.title }}</h1>
+                    <p>{{ miss.description | raw }}</p>
+                        <strong>Compétences éxigées: </strong> <strong>{{ miss.skills.title }}</strong>
+                    <p class="h2">
+                        <strong>{{ miss.title }}</strong> pour <strong>{{ miss.price }}&euro;
+                        </strong>
 
-            </p>
-            <a href="{{ path('apply_create',{'slug' : miss.slug})  }}" class="btn btn-primary">Postuler!</a>
+                    </p>
+                    <a href="{{ path('apply_create',{'slug' : miss.slug})  }}" class="btn btn-primary">Postuler!</a>
 
-                        {% if app.user and app.user == miss.userSoc %}
-                            <a href="{{ path('miss_edit', {'slug': miss.slug}) }}" class="btn btn-secondary">Modifier l'annonce</a>
-                            <a href="{{  path('miss_delete', {'slug' : miss.slug}) }}" class="btn btn-danger" oneclick="return confirm(`Etes vous sur de vouloir supprimer l'annonce : {{miss.title}}?`)">Supprimer l'annonce</a>
-                        {% endif %}
-
-        </div>
-    </div>
+                                {% if app.user and app.user == miss.userSoc %}
+                                    <a href="{{ path('miss_edit', {'slug': miss.slug}) }}" class="btn btn-secondary">Modifier l'annonce</a>
+                                    <a href="{{  path('miss_delete', {'slug' : miss.slug}) }}" class="btn btn-danger" oneclick="return confirm(`Etes vous sur de vouloir supprimer l'annonce : {{miss.title}}?`)">Supprimer l'annonce</a>
+                                {% endif %}
+                </div>
 
 
+                    <div class="col">
+                        <div class="alert alert-light">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 mb-3">
-                {{ miss.description | raw }}
+                            <h2 class="alert-heading">Votre société</h2>
+                            <div class="row">
+                                <div class="col-3">
+                                <img src="{{ author.picture }}" class="avatar avatar-medium" alt="Avatar de {{ author.name }}">
+                                </div>
+                                <div class="col-9">
+                                <h4>
+                                    <a href="{{  path('usersoc_show', {'slug': miss.userSoc.slug}) }}">{{ author.name }}</a>
+                                </h4>
 
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        {#
-                        {% for image in ad.images %}
-                            <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}" {% if loop.first %} class="active" {% endif %}></li>
-                        {% endfor %}
-                        #}
-                    </ol>
-                    <div class="carousel-inner">{#
-                        {% for image in ad.images %}
-                            <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                <img class="d-block w-100"  src="{{ image.url }}"  alt="First slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>{{ ad.title }}</h5>
-                                    <p>{{ image.caption }}</p>
+                                <span class="badge badge-primary">{{author.missions|length }} missions</span>
                                 </div>
                             </div>
-                        {%  endfor %}
-                        #}
+                            {{ author.introduction | raw }}
+                            </div>
+
+                        <a href="{{ path('usersoc_show', {'slug': miss.userSoc.slug}) }}" class="btn btn-primary"> Plus d'info {{ author.name }}</a>
+                        </div>
 
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-
-            </div>
-            <div class="col">
-                {#   {% set a = ad.author %} #}
-                <div class="row mb-3 align-items-center">
-                    <div class="col-2">
-                        <a href="#">
-                            <img src="" class="avatar avatar-medium" alt="Avatar de ">
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="#">
-                            <h3>{{ miss.title}}</h3>
-                        </a>
-                        <span class="badge badge-primary"></span>
-
-                    </div>
-                </div>
-
-                {{ miss.description | raw }}
-
-            </div>
         </div>
+
     </div>
+
+
+
+
 
 {% endblock %}
