@@ -178,6 +178,39 @@ class AccountController extends AbstractController
         ]);
 
     }
+    /**
+     * Permet d afficher et de traiter le formulaire de modification du profil soc
+     *
+     * @Route("/account/profile", name="account_profile")
+     *
+     * @IsGranted("ROLE_USERSOC")
+     *
+     * @return Response
+     */
+    public function profilesoc(Request $request, ObjectManager $manager){
+
+        $user = $this->getuser();
+
+        $form = $this->createForm(RegistrationSocType::class, $user);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Les données du profile ont bien été enregistrées"
+            );
+        }
+
+        return $this->render('account/profilesoc.html.twig', [
+            'form' =>$form->createView()
+        ]);
+
+    }
 
     /**
      * Permet de modifier  mot de passe
@@ -257,7 +290,6 @@ class AccountController extends AbstractController
      * Permet d'afficher la liste des candidature envoyé faites par le freelancer
      *
      * @Route("/account/applies", name="account_applies")
-     *
      *
      */
 public function bookings(){

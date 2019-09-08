@@ -21,7 +21,7 @@ class Skill
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $tile;
+    private $title;
 
     /**
      * @ORM\Column(type="text")
@@ -29,7 +29,7 @@ class Skill
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Mission", inversedBy="skills")
+     * @ORM\OneToMany(targetEntity="App\Entity\Mission", mappedBy="skills")
      */
     private $miss;
 
@@ -55,14 +55,14 @@ class Skill
         return $this->id;
     }
 
-    public function getTile(): ?string
+    public function getTitle(): ?string
     {
-        return $this->tile;
+        return $this->title;
     }
 
-    public function setTile(string $tile): self
+    public function setTitle(string $title): self
     {
-        $this->tile = $tile;
+        $this->title = $title;
 
         return $this;
     }
@@ -100,6 +100,10 @@ class Skill
     {
         if ($this->miss->contains($miss)) {
             $this->miss->removeElement($miss);
+            // set the owning side to null (unless already changed)
+            if ($miss->getSkill() === $this) {
+                $miss->setSkill(null);
+            }
         }
 
         return $this;

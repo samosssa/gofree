@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Mission;
+use App\Entity\Skill;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -55,6 +56,13 @@ class MissionType extends ApplicationType
             ->add('description',
                 TextType::class,
                 $this->getConfiguration("description", "Donnez une description"))
+
+            ->add('skills', EntityType::class, [
+                'class' => Skill::class,
+                'choice_label' => function(Skill $skill) {
+                    return sprintf('(%d) %s', $skill->getId(), $skill->getTitle());
+                }
+            ])
             ->add(
                 'price',
                 MoneyType::class,

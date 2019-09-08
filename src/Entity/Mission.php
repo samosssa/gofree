@@ -65,8 +65,8 @@ class Mission
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Skill",
-     *      mappedBy="miss")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Skill",
+     *      inversedBy="miss")
      */
     private $skills;
 
@@ -106,7 +106,7 @@ class Mission
 
     public function __construct()
     {
-        $this->skills = new ArrayCollection();
+
         $this->users = new ArrayCollection();
         $this->startDate = new ArrayCollection();
         $this->applies = new ArrayCollection();
@@ -221,9 +221,9 @@ class Mission
     }
 
     public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
+{
+    return $this->category;
+}
 
     public function setCategory(?Category $category): self
     {
@@ -231,34 +231,19 @@ class Mission
 
         return $this;
     }
-
-    /**
-     * @return Collection|Skill[]
-     */
-    public function getSkills(): Collection
+    public function getSkills(): ?Skill
     {
         return $this->skills;
     }
 
-    public function addSkill(Skill $skill): self
+    public function setSkills(?Skill $skills): self
     {
-        if (!$this->skills->contains($skill)) {
-            $this->skills[] = $skill;
-            $skill->addMiss($this);
-        }
+        $this->skills = $skills;
 
         return $this;
     }
 
-    public function removeSkill(Skill $skill): self
-    {
-        if ($this->skills->contains($skill)) {
-            $this->skills->removeElement($skill);
-            $skill->removeMiss($this);
-        }
 
-        return $this;
-    }
 
     /**
      * @return Collection|User[]

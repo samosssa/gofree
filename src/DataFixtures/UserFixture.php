@@ -124,6 +124,7 @@ class UserFixture extends Fixture
             $mission->setPrice($faker->randomFloat());
             $mission->setDescription('<p>' .join('<p></p>',$faker->paragraphs(3)) . '</p>');
             $mission->setCategory($this->getReference('category_' . rand(0,2)));
+            $mission->setSkills($this->getReference('skill_' . rand(0,2)));
             $mission->setUserSoc($usersoc);
 
             $manager->persist($mission);
